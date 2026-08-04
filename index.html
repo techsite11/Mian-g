@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mian G Cafe & Fast Food | Official Menu & Online Order</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #C8102E;
+            --primary-dark: #900C21;
+            --accent: #FFC72C;
+            --dark: #0f172a;
+            --light: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text-main: #1E293B;
+            --text-sub: #64748B;
+            --shadow: 0 10px 25px -5px rgba(0,0,0,0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Top Announcement Bar */
+        .announcement-bar {
+            background: var(--dark);
+            color: #fff;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .announcement-bar div {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .announcement-bar i {
+            color: var(--accent);
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
+
+        /* Logo Display */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-box {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 16px rgba(200, 16, 46, 0.35);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text .main-name {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: var(--dark);
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text .main-name span {
+            color: var(--primary);
+        }
+
+        .logo-text .sub-tag {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+            background: var(--dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            margin-top: 3px;
+            width: fit-content;
+        }
+
+        .cart-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 10px 22px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(200, 16, 46, 0.3);
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .cart-badge {
+            background: var(--accent);
+            color: var(--dark);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+
+        /* Front Page Hero Section */
+        .hero {
+            position: relative;
+            padding: 80px 20px 60px;
+            background: radial-gradient(circle at 80% 20%, rgba(200, 16, 46, 0.25) 0%, transparent 40%),
+                        linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 15px;
+        }
+
+        .hero-text h1 span {
+            color: var(--accent);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+
+        .contact-pills {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .contact-pill {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .contact-pill i {
+            color: var(--accent);
+        }
+
+        .hero-img-box {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-img-box img {
+            width: 100%;
+            max-width: 480px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: rotate(-1deg);
+        }
+
+        /* Search Section */
+        .filter-section {
+            max-width: 1250px;
+            margin: -30px auto 30px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            background: white;
+            padding: 12px 22px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-box i {
+            color: var(--text-sub);
+            font-size: 1.2rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        /* Category Tabs */
+        .categories-container {
+            max-width: 1250px;
+            margin: 0 auto 30px;
+            padding: 0 20px;
+        }
+
+        .categories {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-btn {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+
+        .cat-btn.active, .cat-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(200, 16, 46, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Menu Grid */
+        .menu-container {
+            max-width: 1250px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 22px;
+        }
+
+        .food-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #f1f5f9;
+        }
+
+        .food-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        .food-img-wrapper {
+            position: relative;
+            height: 170px;
+            overflow: hidden;
+        }
+
+        .food-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .food-card:hover .food-img {
+            transform: scale(1.08);
+        }
+
+        .food-info {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .food-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .size-select-box {
+            margin: 10px 0;
+        }
+
+        .size-select-box select {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-weight: 600;
+            outline: none;
+            background: #f8fafc;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        .food-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 10px;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .add-to-cart-btn {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* Cart Drawer */
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 100%;
+            max-width: 420px;
+            height: 100vh;
+            background: white;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+            z-index: 2000;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-drawer.open { right: 0; }
+
+        .cart-header {
+            padding: 18px;
+            background: var(--dark);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-cart { cursor: pointer; font-size: 1.4rem; }
+
+        .cart-items {
+            padding: 18px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .cart-item-details { flex-grow: 1; }
+        .cart-item-title { font-weight: 700; font-size: 0.9rem; }
+        .cart-item-price { color: var(--primary); font-weight: 700; font-size: 0.85rem; }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .qty-btn {
+            background: #e2e8f0;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cart-footer {
+            padding: 18px;
+            border-top: 1px solid #f1f5f9;
+            background: #f8fafc;
+        }
+
+        .total-price {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .whatsapp-btn {
+            width: 100%;
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 1500;
+            display: none;
+        }
+
+        .overlay.active { display: block; }
+
+        @media (max-width: 850px) {
+            .hero-container { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .contact-pills { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Announcement Bar -->
+    <div class="announcement-bar">
+        <div><i class="fa-solid fa-fire"></i> Mian G Cafe & Fast Food - Fresh & Delicious Food</div>
+        <div><i class="fa-solid fa-truck-fast"></i> Home Delivery Available</div>
+        <div><i class="fa-solid fa-star"></i> Special Mataka Pizza Available</div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="brand-logo">
+                <div class="logo-box">
+                    <i class="fa-solid fa-utensils" style="color: white; font-size: 1.4rem;"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="main-name">Mian G <span>Cafe</span></span>
+                    <span class="sub-tag">& FAST FOOD</span>
+                </div>
+            </a>
+            <button class="cart-btn" onclick="toggleCart()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Cart</span>
+                <div class="cart-badge" id="cart-count">0</div>
+            </button>
+        </div>
+    </header>
+
+    <!-- Front Page Main Hero -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-text" data-aos="fade-right">
+                <h1>Mian G Cafe &<br><span>FAST FOOD</span></h1>
+                <p>Welcome to Mian G Cafe & Fast Food! Explore our 30 Combo Deals, Mian G Special Pizzas, Wraps, Shakes, Salads & Signature Mataka Pizza.</p>
+                <div class="contact-pills">
+                    <span class="contact-pill"><i class="fa-solid fa-phone"></i> Order via WhatsApp</span>
+                    <span class="contact-pill"><i class="fa-solid fa-clock"></i> Open Daily</span>
+                </div>
+            </div>
+            <div class="hero-img-box" data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80" alt="Mian G Cafe Food">
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <div class="filter-section" data-aos="fade-up">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search menu (Deal 1, Mataka Pizza, Burger, Coffee, Salad...)" onkeyup="filterMenu()">
+        </div>
+    </div>
+
+    <!-- Categories Filters -->
+    <div class="categories-container" data-aos="fade-up">
+        <div class="categories">
+            <button class="cat-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-border-all"></i> All Items</button>
+            <button class="cat-btn" onclick="filterCategory('deals', this)"><i class="fa-solid fa-box"></i> Combo Deals (1-30)</button>
+            <button class="cat-btn" onclick="filterCategory('mian-g-specials', this)"><i class="fa-solid fa-star"></i> Mian G Specials Pizza</button>
+            <button class="cat-btn" onclick="filterCategory('classic-pizza', this)"><i class="fa-solid fa-pizza-slice"></i> Classic Pizza</button>
+            <button class="cat-btn" onclick="filterCategory('special-pizzas', this)"><i class="fa-solid fa-fire"></i> Special Pizzas & Mataka</button>
+            <button class="cat-btn" onclick="filterCategory('wraps', this)"><i class="fa-solid fa-scroll"></i> Wraps & Shawarma</button>
+            <button class="cat-btn" onclick="filterCategory('coffee-tea', this)"><i class="fa-solid fa-mug-hot"></i> Coffee & Tea</button>
+            <button class="cat-btn" onclick="filterCategory('salad', this)"><i class="fa-solid fa-carrot"></i> Salads</button>
+        </div>
+    </div>
+
+    <!-- Menu Grid -->
+    <main class="menu-container">
+        <div class="menu-grid" id="menu-grid"></div>
+    </main>
+
+    <!-- Side Cart Drawer -->
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Order List</h3>
+            <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()"></i>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer">
+            <div class="total-price">
+                <span>Total Bill:</span>
+                <span id="cart-total">Rs 0</span>
+            </div>
+            <button class="whatsapp-btn" onclick="sendWhatsAppOrder()">
+                <i class="fa-brands fa-whatsapp"></i> Send Order on WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 600, once: true });
+
+        // EXACT MENU DATA EXTRACTED FROM MIAN G CAFE MENU IMAGE
+        const menuData = [
+            // --- DEALS 1 to 30 ---
+            { id: 1, name: "DEAL 1", category: "deals", price: 300, desc: "Special Open Shawarma", img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
+            { id: 2, name: "DEAL 2", category: "deals", price: 200, desc: "Zinger Shawarma", img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
+            { id: 3, name: "DEAL 3", category: "deals", price: 150, desc: "Chicken Shawarma", img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
+            { id: 4, name: "DEAL 4", category: "deals", price: 200, desc: "Zinger Burger", img: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=600&q=80" },
+            { id: 5, name: "DEAL 5", category: "deals", price: 250, desc: "Sizzler Burger", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" },
+            { id: 6, name: "DEAL 6", category: "deals", price: 320, desc: "Mighty Burger", img: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=600&q=80" },
+            { id: 7, name: "DEAL 7", category: "deals", price: 150, desc: "Chicken Burger", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" },
+            { id: 8, name: "DEAL 8", category: "deals", price: 220, desc: "Beef Burger", img: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80" },
+            { id: 9, name: "DEAL 9", category: "deals", price: 230, desc: "Twister", img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=600&q=80" },
+            { id: 10, name: "DEAL 10", category: "deals", price: 410, desc: "Sizzler Burger, Reg Fries, 1 Tin Pack", img: "https://images.unsplash.com/photo-1610440042657-612c34d95e9f?auto=format&fit=crop&w=600&q=80" },
+            { id: 11, name: "DEAL 11", category: "deals", price: 350, desc: "Chicken Burger, Reg Fries, 1 Tin Pack", img: "https://images.unsplash.com/photo-1610440042657-612c34d95e9f?auto=format&fit=crop&w=600&q=80" },
+            { id: 12, name: "DEAL 12", category: "deals", price: 550, desc: "Sizzler Burger, 3 Hot Wings, Reg Fries, 1 Tin Pack", img: "https://images.unsplash.com/photo-1610440042657-612c34d95e9f?auto=format&fit=crop&w=600&q=80" },
+            { id: 13, name: "DEAL 13", category: "deals", price: 220, desc: "Puratha Roll", img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=600&q=80" },
+            { id: 14, name: "DEAL 14", category: "deals", price: 700, desc: "2 Sizzler Burger, 5 Hot Wings, 1 Lit Drink", img: "https://images.unsplash.com/photo-1610440042657-612c34d95e9f?auto=format&fit=crop&w=600&q=80" },
+            { id: 15, name: "DEAL 15", category: "deals", sizes: { "Medium": 500, "Large": 800 }, desc: "Cheese Stick", img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80" },
+            { id: 16, name: "DEAL 16", category: "deals", price: 450, desc: "12 Hot Shots", img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80" },
+            { id: 17, name: "DEAL 17 (5 Pcs Wings)", category: "deals", price: 250, desc: "5 Hot Wings", img: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=600&q=80" },
+            { id: 171, name: "DEAL 17 (10 Pcs Wings)", category: "deals", price: 500, desc: "10 Hot Wings", img: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=600&q=80" },
+            { id: 18, name: "DEAL 18 (5 Pcs Nuggets)", category: "deals", price: 250, desc: "5 Pcs Nuggets", img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80" },
+            { id: 181, name: "DEAL 18 (10 Pcs Nuggets)", category: "deals", price: 500, desc: "10 Pcs Nuggets", img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80" },
+            { id: 19, name: "DEAL 19", category: "deals", price: 2000, desc: "10 Zinger Burger + 1.5 Ltr Drink", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" },
+            { id: 20, name: "DEAL 20", category: "deals", price: 1500, desc: "10 Chicken Shawarma + 1.5 Ltr Drink", img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
+            { id: 21, name: "DEAL 21", category: "deals", price: 300, desc: "Grill Burger", img: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=600&q=80" },
+            { id: 22, name: "DEAL 22", category: "deals", price: 1100, desc: "4 Sizzler Burger + 1 Ltr Drink", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" },
+            { id: 23, name: "DEAL 23", category: "deals", price: 950, desc: "4 Chicken Burger Or 4 Zinger Burger + 1 Ltr Drink", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" },
+            { id: 24, name: "DEAL 24", category: "deals", price: 1000, desc: "1 Medium Pizza, 6 Hot Shot, 1 Ltr. Drink", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+            { id: 25, name: "DEAL 25", category: "deals", price: 2200, desc: "1 Medium Pizza, 5 Pcs Chicken, 4 Sizzler Burger, 1 Family Fries, 1.5 Ltr. Drink", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+            { id: 26, name: "DEAL 26", category: "deals", price: 3200, desc: "2 Large Pizza, 10 Pcs Chicken, 12 Hot Shots, 1 Family Fries, 1.5 Ltr Drink", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+            { id: 27, name: "DEAL 27 (Birthday Deal)", category: "deals", price: 3800, desc: "2 Large Pizza, 1 Pound Cake, 20 Wings, 20 Nuggets, 1.5 Ltr Drink, 2 F.F", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+            { id: 28, name: "DEAL 28", category: "deals", price: 950, desc: "2 Small Pizza, Half Fries, 1 Ltr Drink", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+            { id: 29, name: "DEAL 29", category: "deals", price: 200, desc: "Kabab Shawarma", img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
+            { id: 30, name: "DEAL 30 (Loder Fries)", category: "deals", sizes: { "Small": 350, "Medium": 450 }, desc: "Loder Fries", img: "https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=600&q=80" },
+            { id: 301, name: "Finger Fries", category: "deals", sizes: { "Small": 250, "Medium": 300 }, desc: "Finger Fries", img: "https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=600&q=80" },
+            { id: 302, name: "Special Deal 1", category: "deals", price: 1600, desc: "2 Medium Pizza + Half Fries + 1 Ltr Drink", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+            { id: 303, name: "Special Deal 2", category: "deals", price: 2200, desc: "2 Large Pizza + 1 Fries + 1.5 Ltr. Drink", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+
+            // --- MIAN G SPECIALS PIZZA ---
+            { id: 501, name: "Mian G Special Pizza", category: "mian-g-specials", sizes: { "Small": 400, "Medium": 700, "Large": 1000 }, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+            { id: 502, name: "Kabab Crust Pizza", category: "mian-g-specials", sizes: { "Small": 500, "Medium": 800, "Large": 1200 }, img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80" },
+            { id: 503, name: "Mughalai Cream Tikka Pizza", category: "mian-g-specials", sizes: { "Small": 500, "Medium": 800, "Large": 1100 }, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80" },
+            { id: 504, name: "Chicken Cheese Crust Pizza", category: "mian-g-specials", sizes: { "Small": 500, "Medium": 800, "Large": 1100 }, img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80" },
+            { id: 505, name: "Doner Pizza", category: "mian-g-specials", sizes: { "Small": 500, "Medium": 800, "Large": 1200 }, img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=600&q=80" },
+            { id: 506, name: "Lazania Pizza", category: "mian-g-specials", sizes: { "Small": 450, "Medium": 750, "Large": 1200 }, img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=600&q=80" },
+            { id: 507, name: "Delight Pizza", category: "mian-g-specials", sizes: { "Small": 450, "Medium": 750, "Large": 1200 }, img: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=600&q=80" },
+            { id: 508, name: "Crown Crust Pizza", category: "mian-g-specials", sizes: { "Small": 500, "Medium": 800, "Large": 1200 }, img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80" },
+
+            // --- CLASSIC PIZZA ---
+            { id: 601, name: "Chicken Tikka Pizza", category: "classic-pizza", sizes: { "Small": 400, "Medium": 700, "Large": 1000 }, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+            { id: 602, name: "Chicken Supreme Pizza", category: "classic-pizza", sizes: { "Small": 400, "Medium": 700, "Large": 1000 }, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80" },
+            { id: 603, name: "Bar BQ Pizza", category: "classic-pizza", sizes: { "Small": 400, "Medium": 700, "Large": 1000 }, img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80" },
+            { id: 604, name: "Chicken Fajita Pizza", category: "classic-pizza", sizes: { "Small": 400, "Medium": 700, "Large": 1000 }, img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=600&q=80" },
+            { id: 605, name: "Vegitable Pizza", category: "classic-pizza", sizes: { "Small": 400, "Medium": 700, "Large": 1000 }, img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80" },
+            { id: 606, name: "Achari Pizza", category: "classic-pizza", sizes: { "Small": 400, "Medium": 700, "Large": 1000 }, img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=600&q=80" },
+            { id: 607, name: "Hot & Spicy Pizza", category: "classic-pizza", sizes: { "Small": 400, "Medium": 700, "Large": 1000 }, img: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=600&q=80" },
+            { id: 608, name: "Tandori Pizza", category: "classic-pizza", sizes: { "Small": 400, "Medium": 700, "Large": 1000 }, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+
+            // --- SPECIAL PIZZAS & MATAKA PIZZA ---
+            { id: 701, name: "Jambo Pizza Special", category: "special-pizzas", price: 3000, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+            { id: 702, name: "Family Pizza Special", category: "special-pizzas", price: 2000, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" },
+            { id: 703, name: "Mian G Special Mataka Pizza", category: "special-pizzas", price: 700, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80" },
+
+            // --- WRAPS & SHAWARMA ---
+            { id: 801, name: "Turkish Shawarma", category: "wraps", price: 250, img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
+            { id: 802, name: "Arabic Shawarma", category: "wraps", price: 250, img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
+            { id: 803, name: "Chicken Sandwich", category: "wraps", price: 250, img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" },
+            { id: 804, name: "Club Sandwich", category: "wraps", price: 300, img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" },
+            { id: 805, name: "Grill Shawarma", category: "wraps", price: 250, img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
+            { id: 806, name: "Chicken Cheese Shawarma", category: "wraps", price: 250, img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
+            { id: 807, name: "Chicken Cheese Shawarma (Special)", category: "wraps", price: 250, img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
+            { id: 808, name: "Zinger Cheese Shawarma", category: "wraps", price: 300, img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
+
+            // --- COFFEE & TEA ---
+            { id: 901, name: "Cappuchino", category: "coffee-tea", price: 200, img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80" },
+            { id: 902, name: "Black Coffee", category: "coffee-tea", price: 200, img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80" },
+            { id: 903, name: "Paste Coffee", category: "coffee-tea", price: 200, img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80" },
+            { id: 904, name: "Chocolate Milk", category: "coffee-tea", price: 200, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80" },
+            { id: 905, name: "Creme Coffee", category: "coffee-tea", price: 200, img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80" },
+
+            // --- SALAD ---
+            { id: 1001, name: "Mix Fruit Salad", category: "salad", sizes: { "Small": 200, "Large": 300 }, img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80" },
+            { id: 1002, name: "Chicken Pineapple Salad", category: "salad", sizes: { "Small": 200, "Large": 330 }, img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80" },
+            { id: 1003, name: "Redbean Salad", category: "salad", sizes: { "Small": 150, "Large": 280 }, img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80" },
+            { id: 1004, name: "Russion Salad", category: "salad", sizes: { "Small": 150, "Large": 280 }, img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80" }
+        ];
+
+        let cart = [];
+
+        // Render Menu Items
+        function renderMenu(items) {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = '';
+
+            items.forEach((item) => {
+                const hasSizes = item.sizes !== undefined;
+                let sizeSelectHTML = '';
+                let defaultPrice = item.price;
+
+                if (hasSizes) {
+                    const firstSize = Object.keys(item.sizes)[0];
+                    defaultPrice = item.sizes[firstSize];
+                    sizeSelectHTML = `
+                        <div class="size-select-box">
+                            <select id="size-${item.id}" onchange="updatePrice(${item.id})">
+                                ${Object.keys(item.sizes).map(s => `<option value="${s}">${s} - Rs ${item.sizes[s]}</option>`).join('')}
+                            </select>
+                        </div>
+                    `;
+                }
+
+                grid.innerHTML += `
+                    <div class="food-card">
+                        <div class="food-img-wrapper">
+                            <img src="${item.img}" alt="${item.name}" class="food-img" loading="lazy">
+                        </div>
+                        <div class="food-info">
+                            <div class="food-name">${item.name}</div>
+                            ${item.desc ? `<div style="font-size:0.8rem; color:var(--text-sub);">${item.desc}</div>` : ''}
+                            ${sizeSelectHTML}
+                            <div class="food-bottom">
+                                <div class="price" id="price-${item.id}">Rs ${defaultPrice}</div>
+                                <button class="add-to-cart-btn" onclick="addToCart(${item.id})">
+                                    <i class="fa-solid fa-plus"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Update Price display based on size drop down
+        function updatePrice(id) {
+            const item = menuData.find(i => i.id === id);
+            const select = document.getElementById(`size-${id}`);
+            const selectedSize = select.value;
+            const newPrice = item.sizes[selectedSize];
+            document.getElementById(`price-${id}`).innerText = `Rs ${newPrice}`;
+        }
+
+        // Filter Categories
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            if (cat === 'all') {
+                renderMenu(menuData);
+            } else {
+                const filtered = menuData.filter(i => i.category === cat);
+                renderMenu(filtered);
+            }
+        }
+
+        // Search Filter
+        function filterMenu() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = menuData.filter(i => 
+                i.name.toLowerCase().includes(query) || 
+                (i.desc && i.desc.toLowerCase().includes(query))
+            );
+            renderMenu(filtered);
+        }
+
+        // Add to Cart Logic
+        function addToCart(id) {
+            const item = menuData.find(i => i.id === id);
+            let selectedName = item.name;
+            let itemPrice = item.price;
+
+            if (item.sizes) {
+                const select = document.getElementById(`size-${id}`);
+                const selectedSize = select.value;
+                selectedName = `${item.name} (${selectedSize})`;
+                itemPrice = item.sizes[selectedSize];
+            }
+
+            const cartItemId = `${id}-${selectedName}`;
+            const existing = cart.find(c => c.cartItemId === cartItemId);
+
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ cartItemId, name: selectedName, price: itemPrice, qty: 1 });
+            }
+
+            updateCartUI();
+        }
+
+        function updateQty(cartItemId, change) {
+            const existing = cart.find(c => c.cartItemId === cartItemId);
+            if (existing) {
+                existing.qty += change;
+                if (existing.qty <= 0) {
+                    cart = cart.filter(c => c.cartItemId !== cartItemId);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartList = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+
+            cartList.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            if (cart.length === 0) {
+                cartList.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-sub);">Your cart is empty</div>`;
+            }
+
+            cart.forEach(c => {
+                total += c.price * c.qty;
+                count += c.qty;
+                cartList.innerHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${c.name}</div>
+                            <div class="cart-item-price">Rs ${c.price * c.qty}</div>
+                            <div class="qty-controls">
+                                <button class="qty-btn" onclick="updateQty('${c.cartItemId}', -1)">-</button>
+                                <span>${c.qty}</span>
+                                <button class="qty-btn" onclick="updateQty('${c.cartItemId}', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartCount.innerText = count;
+            cartTotal.innerText = `Rs ${total}`;
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-drawer').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
+        // Order via WhatsApp
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                alert("Please add items to your cart first!");
+                return;
+            }
+
+            let message = "Hello *Mian G Cafe & Fast Food*! 👋%0AI would like to place an order:%0A%0A";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                message += `${index + 1}. *${item.name}* x${item.qty} = Rs ${item.price * item.qty}%0A`;
+                total += item.price * item.qty;
+            });
+
+            message += `%0A*Total Bill: Rs ${total}*%0APlease confirm my order.`;
+
+            // Replace with actual restaurant WhatsApp number when needed
+            const phone = "923000000000";
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+
+        // Initialize display
+        renderMenu(menuData);
+    </script>
+</body>
+</html>
