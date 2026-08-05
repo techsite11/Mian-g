@@ -625,22 +625,30 @@
         </div>
         <div class="cart-items" id="cart-items"></div>
         <div class="cart-footer">
-            <div class="total-price">
-                <span>Total Bill:</span>
-                <span id="cart-total">Rs 0</span>
-            </div>
-            <button class="whatsapp-btn" onclick="sendWhatsAppOrder()">
-                <i class="fa-brands fa-whatsapp"></i> Send Order on WhatsApp
-            </button>
-        </div>
+    <!-- Customer Details Form -->
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
+        <input type="text" id="custName" placeholder="Apna Naam (Your Name)" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none;">
+        <input type="tel" id="custPhone" placeholder="Phone Number (03xx-xxxxxxx)" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none;">
+        <input type="text" id="custAddress" placeholder="Delivery Address" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none;">
     </div>
+
+    <div class="total-price">
+        <span>Total Bill:</span>
+        <span id="cart-total">Rs 0</span>
+    </div>
+    <button class="whatsapp-btn" onclick="sendWhatsAppOrder()">
+        <i class="fa-brands fa-whatsapp"></i> Send Order on WhatsApp
+    </button>
+</div>
+
+    
+</div>
 
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 600, once: true });
 
-        // EXACT MENU DATA EXTRACTED FROM MIAN G CAFE MENU IMAGE
         const menuData = [
             // --- DEALS 1 to 30 ---
             { id: 1, name: "DEAL 1", category: "deals", price: 300, desc: "Special Open Shawarma", img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80" },
@@ -730,7 +738,7 @@
 
         let cart = [];
 
-        // Render Menu Items
+        // Render Menu Items (FIXED UNDEFINED PRICE ISSUE)
         function renderMenu(items) {
             const grid = document.getElementById('menu-grid');
             grid.innerHTML = '';
@@ -805,7 +813,7 @@
             renderMenu(filtered);
         }
 
-        // Add to Cart Logic
+        // Add to Cart Logic (FIXED UNDEFINED PRICE ISSUE)
         function addToCart(id) {
             const item = menuData.find(i => i.id === id);
             let selectedName = item.name;
@@ -813,7 +821,7 @@
 
             if (item.sizes) {
                 const select = document.getElementById(`size-${id}`);
-                const selectedSize = select.value;
+                const selectedSize = select ? select.value : Object.keys(item.sizes)[0];
                 selectedName = `${item.name} (${selectedSize})`;
                 itemPrice = item.sizes[selectedSize];
             }
@@ -882,27 +890,46 @@
         }
 
         // Order via WhatsApp
-        function sendWhatsAppOrder() {
-            if (cart.length === 0) {
-                alert("Please add items to your cart first!");
-                return;
-            }
+        // Order via WhatsApp (FIXED WhatsApp Message Format & Newline Encoding)
+// Order via WhatsApp (Ultra Clear & Professional Format)
+function sendWhatsAppOrder() {
+    if (cart.length === 0) {
+        alert("Please add items to your cart first!");
+        return;
+    }
 
-            let message = "Hello *Mian G Cafe & Fast Food*! 👋%0AI would like to place an order:%0A%0A";
-            let total = 0;
+    // Direct Inputs se values read karein
+    const customerName = document.getElementById('custName').value.trim() || "Customer";
+    const customerPhone = document.getElementById('custPhone').value.trim() || "Not provided";
+    const customerAddress = document.getElementById('custAddress').value.trim() || "Address not provided";
 
-            cart.forEach((item, index) => {
-                message += `${index + 1}. *${item.name}* x${item.qty} = Rs ${item.price * item.qty}%0A`;
-                total += item.price * item.qty;
-            });
+    let message = `🛒 *NEW ORDER - MIAN G CAFE & FAST FOOD*\n`;
+    message += `------------------------------------\n`;
+    message += `👤 *Customer Name:* ${customerName}\n`;
+    message += `📞 *Phone Number:* ${customerPhone}\n`;
+    message += `📍 *Delivery Address:* ${customerAddress}\n`;
+    message += `------------------------------------\n\n`;
+    message += `📋 *ORDER DETAILS:*\n`;
 
-            message += `%0A*Total Bill: Rs ${total}*%0APlease confirm my order.`;
+    let total = 0;
+    cart.forEach((item, index) => {
+        const itemTotal = item.price * item.qty;
+        message += `${index + 1}. *${item.name}*\n`;
+        message += `   └ Quantity: ${item.qty} x Rs ${item.price} = *Rs ${itemTotal}*\n`;
+        total += itemTotal;
+    });
 
-            // Replace with actual restaurant WhatsApp number when needed
-            const phone = "923000000000";
-            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-        }
+    message += `\n------------------------------------\n`;
+    message += `💰 *TOTAL BILL:* *Rs ${total}*\n`;
+    message += `💵 *Payment Method:* Cash on Delivery\n`;
+    message += `------------------------------------\n`;
+    message += `Please confirm my order and estimated delivery time! 🙏`;
 
+    const phone = "923000000000"; // Apna WhatsApp Number yahan daalein
+    const encodedMessage = encodeURIComponent(message);
+    
+    window.location.href = `https://wa.me/${phone}?text=${encodedMessage}`;
+}
         // Initialize display
         renderMenu(menuData);
     </script>
