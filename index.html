@@ -626,11 +626,21 @@
         <div class="cart-items" id="cart-items"></div>
         <div class="cart-footer">
     <!-- Customer Details Form -->
-    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
-        <input type="text" id="custName" placeholder="Apna Naam (Your Name)" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none;">
-        <input type="tel" id="custPhone" placeholder="Phone Number (03xx-xxxxxxx)" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none;">
-        <input type="text" id="custAddress" placeholder="Delivery Address" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none;">
-    </div>
+   <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px;">
+    <!-- Name Input -->
+    <input type="text" id="custName" placeholder="Apna Naam (Your Name)" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; outline: none; box-sizing: border-box;">
+    
+    <!-- Phone Input -->
+    <input type="tel" id="custPhone" placeholder="Phone Number (03xx-xxxxxxx)" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; outline: none; box-sizing: border-box;">
+    
+    <!-- Address Input -->
+    <input type="text" id="custAddress" placeholder="Delivery Address" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; outline: none; box-sizing: border-box;">
+    
+    <!-- GPS Location Button -->
+    <button type="button" id="locBtn" onclick="getLocation()" style="width: 100%; padding: 10px; border-radius: 10px; border: 1px dashed #25d366; background-color: #f0fdf4; color: #166534; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+        📍 Share Current Location (GPS)
+    </button>
+</div>
 
     <div class="total-price">
         <span>Total Bill:</span>
@@ -892,30 +902,69 @@
         // Order via WhatsApp
         // Order via WhatsApp (FIXED WhatsApp Message Format & Newline Encoding)
 // Order via WhatsApp (Ultra Clear & Professional Format)
+// Global variable for location link
+let customerMapLink = "";
+
+// GPS Location Fetch Function
+function getLocation() {
+    const locBtn = document.getElementById('locBtn');
+    
+    if (navigator.geolocation) {
+        locBtn.innerText = "⏳ Detecting location...";
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                customerMapLink = `https://maps.google.com/?q=${lat},${lng}`;
+                
+                locBtn.innerText = "✓ Location Attached!";
+                locBtn.style.backgroundColor = "#dcfce7";
+                locBtn.style.borderStyle = "solid";
+            },
+            (error) => {
+                alert("Location access allow karein.");
+                locBtn.innerText = "📍 Share Current Location (GPS)";
+            }
+        );
+    } else {
+        alert("Aapka browser location support nahi karta.");
+    }
+}
+
+// Mian G Cafe WhatsApp Order Function
 function sendWhatsAppOrder() {
-    if (cart.length === 0) {
+    if (typeof cart === 'undefined' || cart.length === 0) {
         alert("Please add items to your cart first!");
         return;
     }
 
-    // Direct Inputs se values read karein
-    const customerName = document.getElementById('custName').value.trim() || "Customer";
-    const customerPhone = document.getElementById('custPhone').value.trim() || "Not provided";
-    const customerAddress = document.getElementById('custAddress').value.trim() || "Address not provided";
+    const customerName = document.getElementById('custName')?.value.trim() || "Customer";
+    const customerPhone = document.getElementById('custPhone')?.value.trim() || "Not provided";
+    const customerAddress = document.getElementById('custAddress')?.value.trim() || "Address not provided";
 
     let message = `🛒 *NEW ORDER - MIAN G CAFE & FAST FOOD*\n`;
     message += `------------------------------------\n`;
     message += `👤 *Customer Name:* ${customerName}\n`;
     message += `📞 *Phone Number:* ${customerPhone}\n`;
     message += `📍 *Delivery Address:* ${customerAddress}\n`;
+    
+    // Check if live location was attached
+    if (customerMapLink) {
+        message += `🗺️ *GPS Location:* ${customerMapLink}\n`;
+    }
+    
     message += `------------------------------------\n\n`;
     message += `📋 *ORDER DETAILS:*\n`;
 
     let total = 0;
     cart.forEach((item, index) => {
-        const itemTotal = item.price * item.qty;
-        message += `${index + 1}. *${item.name}*\n`;
-        message += `   └ Quantity: ${item.qty} x Rs ${item.price} = *Rs ${itemTotal}*\n`;
+        const itemName = item.name || item.title || item.itemName || "Food Item";
+        const itemPrice = Number(item.price) || 0;
+        const itemQty = Number(item.qty || item.quantity) || 1;
+        const itemTotal = itemPrice * itemQty;
+
+        message += `${index + 1}. *${itemName}*\n`;
+        message += `   └ Quantity: ${itemQty} x Rs ${itemPrice} = *Rs ${itemTotal}*\n`;
         total += itemTotal;
     });
 
@@ -925,10 +974,8 @@ function sendWhatsAppOrder() {
     message += `------------------------------------\n`;
     message += `Please confirm my order and estimated delivery time! 🙏`;
 
-    const phone = "923000000000"; // Apna WhatsApp Number yahan daalein
-    const encodedMessage = encodeURIComponent(message);
-    
-    window.location.href = `https://wa.me/${phone}?text=${encodedMessage}`;
+    const restaurantPhone = "923297923120"; // Mian G Cafe ka WhatsApp Number yahan daalein
+    window.location.href = `https://wa.me/${restaurantPhone}?text=${encodeURIComponent(message)}`;
 }
         // Initialize display
         renderMenu(menuData);
